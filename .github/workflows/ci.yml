@@ -1,4 +1,4 @@
-name:Simple CI P  IPELINE
+name:Simple CI PIPELINE
 
 on:
   push:
