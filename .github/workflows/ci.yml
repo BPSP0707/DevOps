@@ -23,7 +23,7 @@ jobs:
         run: echo "this is my second step"
 
       - name: pipeline break
-        run: exit 1
+        run: echo "now it works"
 
 
 
