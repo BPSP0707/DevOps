@@ -20,5 +20,10 @@ jobs:
         run: echo "this is my first step"
 
       - name: Step2
-        run: echo "this is my second step" 
+        run: echo "this is my second step"
+
+      - name: pipeline break
+        run: echo "exit1"
+
+
 
