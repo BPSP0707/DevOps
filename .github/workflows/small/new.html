@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>FASTA PARSER</title>
+    </head>
+    <body>
+        <h2>FASTA PARSER</h2>
+        <textarea id="input" rows="10" cols="50" placeholder="enter fasta format data here"></textarea>
+        <button onclick="parseFasta()">Parse FASTA</button>
+
+        <hr>
+
+        <h3>Parsed Output:</h3>
+        <div id="output"></div>
+
+        <script>
+            function parseFasta(){
+                let fasta=document.getElementById("input").value
+
+                fetch("/parse",{
+                    method:"POST",
+                    headers:{"Content-Type":"application/json"},
+                    body: JSON.stringify({fasta:fasta})
+                })
+
+                .then(function(response) {
+                    return response.json();
+                })
+
+                .then(function(data) {
+
+                    let outputDiv = document.getElementById("output");
+                    outputDiv.innerHTML = "Total Sequences: " + data.count + "<br><br>";
+
+                    for (let i = 0; i < data.sequences.length; i++) {
+
+                        let seq = data.sequences[i];
+
+                        let block = document.createElement("div");
+                        block.innerHTML =
+                            "ID: " + seq.id + "<br>" +
+                            "Sequence: " + seq.sequence + "<br>" +
+                            "Length: " + seq.length + "<br>" +
+                            "GC Content: loading...<br>" +
+                            "Reverse Complement: loading...<br><hr>";
+
+                        outputDiv.appendChild(block);
+                    }               
+})
+        </script>
+
+         <h2>GC Content</h2>
+        <textarea id="input" rows="10" cols="50" placeholder="enter fasta format data here"></textarea>
+        <button onclick="gc_content()">GC Content</button>
+
+        <hr>
+        <hr>
+        <h3>GC content Output:</h3>
+        <div id="output"></div>
+
+        <script>
+            function gc_content(){
+                let fasta=document.getElementById("input").value
+                fetch("/gc_content", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({sequence: seq.sequence})
+            })
+            .then(function(res) {
+                return res.json();
+            })
+            .then(function(gcData) {
+                block.innerHTML = block.innerHTML.replace(
+                    "GC Content: loading...",
+                    "GC Content: " + gcData.gc_content + "%"
+                );
+            });
+
+    </body>
+</html>
