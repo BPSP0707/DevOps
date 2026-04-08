@@ -27,5 +27,8 @@ jobs:
       - name: pipeline break
         run: echo "now it works"
 
+      - name: Build Docker Image
+        run: docker build -t devops_demo .   
+
 
 
